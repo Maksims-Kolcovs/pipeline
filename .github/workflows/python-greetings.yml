@@ -12,6 +12,7 @@ jobs:
       - name: Checkout pipeline repo
         uses: actions/checkout@v4
       - name: Show stage info
+        shell: cmd
         run: echo "Installing all required dependencies..."
       - uses: ./.github/actions/install
 
@@ -19,9 +20,13 @@ jobs:
     runs-on: self-hosted
     needs: install-pip-deps
     steps:
+      - name: Stop service before checkout
+        shell: cmd
+        run: pm2 delete greetings-app-dev & EXIT /B 0
       - name: Checkout pipeline repo
         uses: actions/checkout@v4
       - name: Show stage info
+        shell: cmd
         run: echo "Deploying application to DEV environment on port 7001..."
       - uses: ./.github/actions/deploy
         with:
@@ -35,6 +40,7 @@ jobs:
       - name: Checkout pipeline repo
         uses: actions/checkout@v4
       - name: Show stage info
+        shell: cmd
         run: echo "Running automated tests on DEV environment..."
       - uses: ./.github/actions/test
         with:
@@ -44,9 +50,13 @@ jobs:
     runs-on: self-hosted
     needs: tests-on-dev
     steps:
+      - name: Stop service before checkout
+        shell: cmd
+        run: pm2 delete greetings-app-stg & EXIT /B 0
       - name: Checkout pipeline repo
         uses: actions/checkout@v4
       - name: Show stage info
+        shell: cmd
         run: echo "Deploying application to STG environment on port 7002..."
       - uses: ./.github/actions/deploy
         with:
@@ -60,6 +70,7 @@ jobs:
       - name: Checkout pipeline repo
         uses: actions/checkout@v4
       - name: Show stage info
+        shell: cmd
         run: echo "Running automated tests on STG environment..."
       - uses: ./.github/actions/test
         with:
@@ -69,9 +80,13 @@ jobs:
     runs-on: self-hosted
     needs: tests-on-stg
     steps:
+      - name: Stop service before checkout
+        shell: cmd
+        run: pm2 delete greetings-app-preprod & EXIT /B 0
       - name: Checkout pipeline repo
         uses: actions/checkout@v4
       - name: Show stage info
+        shell: cmd
         run: echo "Deploying application to PREPROD environment on port 7003..."
       - uses: ./.github/actions/deploy
         with:
@@ -85,6 +100,7 @@ jobs:
       - name: Checkout pipeline repo
         uses: actions/checkout@v4
       - name: Show stage info
+        shell: cmd
         run: echo "Running automated tests on PREPROD environment..."
       - uses: ./.github/actions/test
         with:
@@ -94,9 +110,13 @@ jobs:
     runs-on: self-hosted
     needs: tests-on-preprod
     steps:
+      - name: Stop service before checkout
+        shell: cmd
+        run: pm2 delete greetings-app-prod & EXIT /B 0
       - name: Checkout pipeline repo
         uses: actions/checkout@v4
       - name: Show stage info
+        shell: cmd
         run: echo "Deploying application to PROD environment on port 7004..."
       - uses: ./.github/actions/deploy
         with:
@@ -110,6 +130,7 @@ jobs:
       - name: Checkout pipeline repo
         uses: actions/checkout@v4
       - name: Show stage info
+        shell: cmd
         run: echo "Running automated tests on PROD environment..."
       - uses: ./.github/actions/test
         with:
