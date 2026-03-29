@@ -1,0 +1,1 @@
+# Pieg-des-konveijera-izveide-izmantojot-r-ku-Github-Actions
