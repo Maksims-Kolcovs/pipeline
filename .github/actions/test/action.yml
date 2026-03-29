@@ -1,5 +1,5 @@
 name: 'Run tests on environment'
-description: 'Clones course-js-api-framework and runs greetings tests against the specified environment'
+description: 'Runs greetings tests against the specified environment'
 
 inputs:
   environment:
@@ -26,4 +26,4 @@ runs:
     - name: Run greetings tests
       shell: cmd
       working-directory: course-js-api-framework
-      run: npm run greetings greetings_${{ inputs.environment }}
+      run: npm run greetings -- greetings_${{ inputs.environment }}
